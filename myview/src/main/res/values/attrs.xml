@@ -16,4 +16,14 @@
         <attr name="outerColor" format="color|reference"/>
         <attr name="innerColor" format="color|reference"/>
     </declare-styleable>
+
+    // NumImageView
+    <declare-styleable name="NumImageView">
+        <attr name="textSize" format="dimension"/>
+        <attr name="textMargin" format="dimension"/>
+        <attr name="pointColor" format="color|reference"/>
+        <attr name="textColor" format="color|reference"/>
+        <attr name="show" format="boolean"/>
+        <attr name="pointText" format="string"/>
+    </declare-styleable>
 </resources>

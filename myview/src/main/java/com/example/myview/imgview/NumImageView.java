@@ -1,6 +1,7 @@
 package com.example.myview.imgview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
+import com.example.myview.R;
+
 public class NumImageView extends AppCompatImageView {
     public static final String TAG = "NumImageView";
 
@@ -20,29 +23,43 @@ public class NumImageView extends AppCompatImageView {
     private int radius = 0;
     private int baseY;
     private int width;
-    private String bgColor = "#B71212";
+    private int bgColor ;
+    private int textColor ;
     private boolean showPoint = false;
     private int ovalLeft;
     private int ovalTop;
     private int ovalRight;
     private int ovalBottom;
-    private int textSize = 30;
+    private int textSize;
     // 字体测量大小Rect
     private Rect textRect = new Rect();
     // 背景path
     private Path bgPath = new Path();
     // 字体距离背景上下边缘的padding
-    private int ovalPadding = 12;
+    private int ovalPadding;
     public NumImageView(Context context) {
         super(context);
     }
 
     public NumImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init(context,attrs);
     }
 
     public NumImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context,attrs);
+    }
+
+    private void init(Context context, AttributeSet attrs) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.NumImageView);
+
+        textSize = (int) array.getDimension(R.styleable.NumImageView_textSize,30);
+        ovalPadding = (int) array.getDimension(R.styleable.NumImageView_textMargin,12);
+        bgColor = array.getColor(R.styleable.NumImageView_pointColor,Color.parseColor("#B71212"));
+        textColor = array.getColor(R.styleable.NumImageView_textColor,Color.parseColor("#ffffff"));
+        showPoint = array.getBoolean(R.styleable.NumImageView_show,false);
+        num = array.getString(R.styleable.NumImageView_pointText);
     }
 
     @Override
@@ -50,7 +67,7 @@ public class NumImageView extends AppCompatImageView {
         super.onDraw(canvas);
         if(!showPoint)return;
         if(num.length()==0){
-            mPaint.setColor(Color.parseColor(bgColor));
+            mPaint.setColor(bgColor);
             mPaint.setStyle(Paint.Style.FILL);
             width = getMeasuredWidth();
 //        Log.e(TAG, "onDraw: width = "+width);
@@ -75,7 +92,7 @@ public class NumImageView extends AppCompatImageView {
 
             mPaint.setTextSize(textSize);
             mPaint.setTextAlign(Paint.Align.CENTER);
-            mPaint.setColor(Color.parseColor(bgColor));
+            mPaint.setColor(bgColor);
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.getTextBounds(num,0,num.length(),textRect);
             width = getMeasuredWidth();
@@ -90,7 +107,7 @@ public class NumImageView extends AppCompatImageView {
 //        Log.e(TAG, "onDraw: cy = "+cy);
             canvas.drawCircle(cx,cy,radius,mPaint);
 
-            mPaint.setColor(Color.WHITE);
+            mPaint.setColor(textColor);
             mPaint.setTextSize(textSize);
             mPaint.setTextAlign(Paint.Align.CENTER);
             baseY = (int) ((radius) - ((mPaint.descent() + mPaint.ascent()) / 2));
@@ -112,14 +129,14 @@ public class NumImageView extends AppCompatImageView {
             bgPath.addArc(new RectF(ovalRight-textRect.height()/2,ovalTop,ovalRight+textRect.height()/2,ovalBottom),270,180);
             bgPath.lineTo(ovalLeft,ovalBottom);
 
-            mPaint.setColor(Color.parseColor(bgColor));
+            mPaint.setColor(bgColor);
             mPaint.setStyle(Paint.Style.FILL);
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                canvas.drawOval(ovalLeft,ovalTop,ovalRight,ovalBottom,mPaint);
 //            }
             canvas.drawPath(bgPath,mPaint);
 
-            mPaint.setColor(Color.WHITE);
+            mPaint.setColor(textColor);
             mPaint.setTextSize(textSize);
             // Paint.Align.LEFT 代表文本被画在中点的 右边
             mPaint.setTextAlign(Paint.Align.LEFT);
@@ -127,7 +144,7 @@ public class NumImageView extends AppCompatImageView {
         }
     }
 
-    public void setBackgroundColor(String backgroundColor){
+    public void setBackgroundColor(int backgroundColor){
         this.bgColor = backgroundColor;
         invalidate();
     }
