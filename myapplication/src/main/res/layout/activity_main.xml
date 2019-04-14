@@ -14,9 +14,10 @@
         app:pointColor="@color/colorPrimaryDark"
         app:show="true"
         app:textColor="@color/colorAccent"
-        app:textSize="50px"
-        app:textMargin="0px"
-        app:pointText="hh"
+        app:textSize="30px"
+        app:textMargin="12px"
+        app:noNumRadius="6dp"
+        app:bgShape="oval"
         android:src="@mipmap/ic_launcher"/>
 
 </LinearLayout>

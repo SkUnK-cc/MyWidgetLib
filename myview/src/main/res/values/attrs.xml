@@ -25,5 +25,11 @@
         <attr name="textColor" format="color|reference"/>
         <attr name="show" format="boolean"/>
         <attr name="pointText" format="string"/>
+        <attr name="noNumRadius" format="dimension"/>
+        <attr name="bgShape"/>
     </declare-styleable>
+    <attr name="bgShape">
+        <enum name="circle" value="0"/>
+        <enum name="oval" value="1"/>
+    </attr>
 </resources>
