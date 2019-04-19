@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity">
 
     <com.example.myview.imgview.NumImageView
@@ -12,12 +13,13 @@
         android:layout_height="wrap_content"
         android:text="Hello World!"
         app:pointColor="@color/colorPrimaryDark"
-        app:show="true"
         app:textColor="@color/colorAccent"
+        app:show="true"
         app:textSize="30px"
         app:textMargin="12px"
-        app:noNumRadius="6dp"
-        app:bgShape="oval"
-        android:src="@mipmap/ic_launcher"/>
+        app:noNumRadius="9dp"
+        app:bgShape="circle"
+        app:pointText="3"
+        android:src="@drawable/myself_unpaid"/>
 
 </LinearLayout>

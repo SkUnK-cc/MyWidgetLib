@@ -11,7 +11,6 @@ import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.example.myview.R;
 
@@ -77,7 +76,6 @@ public class NumImageView extends AppCompatImageView {
             text = "";
         }
         noNumRadius = (int) array.getDimension(R.styleable.NumImageView_noNumRadius,0);
-        Log.e(TAG, "init: "+noNumRadius);
         bgShape = array.getInteger(R.styleable.NumImageView_bgShape,-1);
     }
 
@@ -109,6 +107,9 @@ public class NumImageView extends AppCompatImageView {
         }
     }
 
+    /**
+     * 只画圆点
+     */
     private void drawCircle(Canvas canvas) {
         bgPaint.setColor(bgColor);
         bgPaint.setStyle(Paint.Style.FILL);
@@ -125,6 +126,9 @@ public class NumImageView extends AppCompatImageView {
         canvas.drawCircle(cx,cy,radius, bgPaint);
     }
 
+    /**
+     * 画带文字的圆
+     */
     private void drawCircleWithText(Canvas canvas) {
         /**
          bgPaint.setColor(Color.parseColor(bgColor));
@@ -155,6 +159,9 @@ public class NumImageView extends AppCompatImageView {
         canvas.drawText(text, cx, baseY, textPaint);
     }
 
+    /**
+     * 画带文字的椭圆
+     */
     private void drawOvalWithText(Canvas canvas) {
         textPaint.getTextBounds(text,0, text.length(),textRect);
         width = getMeasuredWidth();
